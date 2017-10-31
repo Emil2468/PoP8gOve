@@ -67,3 +67,9 @@ let rec  colourAt (x,y) figure =
         | (c, None) -> c   // no  overlap
         | (Some (r1,g1,b1), Some (r2,g2,b2)) ->
             Some ((r1+r2)/2, (g1+g2)/2, (b1+b2)/2)
+
+let (circle : figure) = (Circle ((50,50), 45, (255, 0, 0)))
+let (rect : figure) = (Rectangle ((40, 40), (90, 110), (0,0,255)))
+let (figTest : figure) = (Mix (circle, rect))
+
+printfn "%A" figTest
