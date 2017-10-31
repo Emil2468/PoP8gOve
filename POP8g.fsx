@@ -85,4 +85,4 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
             | None -> (ImgUtil.setPixel (grey) (x,y) bmp)
             | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
-makePicture "test.png" figTest 150 150
+makePicture "test.png" figTest 150 150 //Billedet skal være kvadratisk, af en eller anden grund
