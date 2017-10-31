@@ -1,5 +1,4 @@
 // POP8g Øvelsesopgaver
-
 // 8gØ.0
 #r "img_util.dll"
 
@@ -73,3 +72,16 @@ let (rect : figure) = (Rectangle ((40, 40), (90, 110), (0,0,255)))
 let (figTest : figure) = (Mix (circle, rect))
 
 printfn "%A" figTest
+
+// 8gØ.3
+
+let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
+    let grey  = ImgUtil.fromRgb (128, 128, 128)
+    let bmp = ImgUtil.mk h w
+    for x = 0 to (w - 1) do
+        for y = 0 to (h - 1) do
+            match (colourAt (x,y) fig) with
+            | None -> ImgUtil.setPixel (grey) (x,y) bmp
+            | Some c -> ImgUtil.setPixel (ImgUtil.fromRgb (0, 0, 255)) (x,y) bmp 
+    
+makePicture "test.png" figTest 100 130
