@@ -7,7 +7,7 @@ type weekday = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sun
 let nextDay (day : weekday) : weekday =
     match day with
     | Monday -> Tuesday
-    | Tuesday -> Wendesday
+    | Tuesday -> Wednesday
     | Wednesday -> Thursday
     | Thursday -> Friday
     | Friday -> Saturday
