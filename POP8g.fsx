@@ -86,3 +86,21 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
             | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
 makePicture "test.png" figTest 150 150 //Billedet skal være kvadratisk, af en eller anden grund
+
+let checkCircle (fig : figure) : bool=
+    true
+
+let checkRect (Rectangle ((x0 : int,y0 : int), (x1 : int,y1 : int), (r : int, b : int, g : int)) : figure) : bool =
+    let coords = (x1 - x0) > 0 && (y1 - y0) > 0
+    let colors = r >= 0 && r < 256 && g >= 0 && g < 256 && b >= 0 && b < 256
+    coords && colors
+
+let rec checkFigure (fig : figure) : bool =
+    match fig with
+    | Circle  ((cx,cy), r, col) -> checkCircle fig
+    | Rectangle ((x0,y0), (x1,y1), col) -> checkRect fig
+    | Mix (f1, f2) -> checkFigure f1 && checkFigure f2
+
+let badFig = Rectangle ((10, 10), (20, 20), (255, 0, 1))
+
+printfn "%b" (checkFigure badFig)
