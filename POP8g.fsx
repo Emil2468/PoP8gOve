@@ -82,7 +82,7 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
     for x = 0 to (w - 1) do
         for y = 0 to (h - 1) do
             match (colourAt (x,y) fig) with
-            | None -> bmp.SetPixel(x, y, grey)//(ImgUtil.setPixel (grey) (x,y) bmp)
-            | Some c -> bmp.SetPixel(x, y, (ImgUtil.fromRgb(c)))//(ImgUtil.setPixel (ImgUtil.fromRgb (0, 0, 255)) (x,y) bmp)
+            | None -> (ImgUtil.setPixel (grey) (x,y) bmp)
+            | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
-makePicture "test.png" figTest 130 130
+makePicture "test.png" figTest 150 150
