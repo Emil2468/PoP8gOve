@@ -74,7 +74,7 @@ let (figTest : figure) = (Mix (circle, rect))
 
 printfn "%A" figTest
 
-// 8gØ.3
+// 8gØ.3 og 8gø.4
 
 let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
     let grey  = ImgUtil.fromRgb (128, 128, 128)
@@ -86,3 +86,12 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
             | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
 makePicture "test.png" figTest 150 150 //Billedet skal være kvadratisk, af en eller anden grund
+
+// 8gø.5
+
+let checkCircle (Circle ((cx: int, cy: int), (rad: int), (r: int, b: int, g: int)) : figure) : bool =
+    if rad > 0 && r >= 0 && r <= 255 && b >= 0 && b <= 255 && g >= 0 && g <= 255
+        then true
+    else
+       false
+printfn "%A" (checkCircle circle)
