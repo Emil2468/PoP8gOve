@@ -127,8 +127,8 @@ let rec boundingBox (fig : figure) : (point * point) =
     match fig with
     | Circle ((cx, cy), r, col) -> ((cx - r, cy - r), ((cx + r), (cy + r)))
     | Rectangle ((x0, y0), (x1, y1), col) -> ((x0, y0), (x1, y1))
-    | Mix (f1, f2) -> ((min (fst (fst (boundingBox f1))) (fst (fst(boundingBox f2))), (min (fst (snd (boundingBox f1))) (fst (snd (boundingBox f2))))),
-                        (max (snd (fst(boundingBox f1))) (snd (fst (boundingBox f2))), (max (snd (snd (boundingBox f1))) (snd (snd (boundingBox f2))))))
+    | Mix (f1, f2) -> ((min (fst (fst (boundingBox f1))) (fst (fst(boundingBox f2))), (max (fst (snd (boundingBox f1))) (fst (snd (boundingBox f2))))),
+                        (min (snd (fst(boundingBox f1))) (snd (fst (boundingBox f2))), (max (snd (snd (boundingBox f1))) (snd (snd (boundingBox f2))))))
 let coords = boundingBox figTest
 printfn "%A" coords
 let (bound : figure) = (Rectangle ((fst coords, snd coords, (255,255,255))))
