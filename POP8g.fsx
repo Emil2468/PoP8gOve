@@ -85,7 +85,7 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
             | None -> (ImgUtil.setPixel (grey) (x,y) bmp)
             | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
-makePicture "test.png" figTest 100 150 
+makePicture "test.png" figTest 100 150
 
 // 8gØ.5
 
@@ -123,5 +123,14 @@ makePicture "moveTest.png" (move figTest (-20,20)) 100 150
 
 // 8gØ.7
 
-
-
+let rec boundingBox (fig : figure) : (point * point) =
+    match fig with
+    | Circle ((cx, cy), r, col) -> ((cx - r, cy - r), ((cx + r), (cy + r)))
+    | Rectangle ((x0, y0), (x1, y1), col) -> ((x0, y0), (x1, y1))
+    | Mix (f1, f2) -> ((min (fst (fst (boundingBox f1))) (fst (fst(boundingBox f2))), (min (fst (snd (boundingBox f1))) (fst (snd (boundingBox f2))))),
+                        (max (snd (fst(boundingBox f1))) (snd (fst (boundingBox f2))), (max (snd (snd (boundingBox f1))) (snd (snd (boundingBox f2))))))
+let coords = boundingBox figTest
+printfn "%A" coords
+let (bound : figure) = (Rectangle ((fst coords, snd coords, (255,255,255))))
+let boundTest = Mix(figTest, bound)
+makePicture "bound.png" boundTest 100 150
