@@ -79,16 +79,16 @@ printfn "%A" figTest
 
 let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
     let grey  = ImgUtil.fromRgb (128, 128, 128)
-    let bmp = ImgUtil.mk h w
+    let bmp = ImgUtil.mk w h
     for x = 0 to (w - 1) do
         for y = 0 to (h - 1) do
             match (colourAt (x,y) fig) with
             | None -> (ImgUtil.setPixel (grey) (x,y) bmp)
             | Some c -> (ImgUtil.setPixel (ImgUtil.fromRgb (c)) (x,y) bmp)
     ImgUtil.toPngFile fileName bmp
-makePicture "test.png" figTest 150 150 //Billedet skal være kvadratisk, af en eller anden grund
+makePicture "test.png" figTest 100 150 //Billedet skal være kvadratisk, af en eller anden grund
 
-// 8gØ.5 
+// 8gØ.5
 
 let checkCircle (Circle ((cx: int, cy: int), (rad: int), (r: int, b: int, g: int)) : figure) : bool =
     if rad > 0 && r >= 0 && r <= 255 && b >= 0 && b <= 255 && g >= 0 && g <= 255
@@ -119,4 +119,3 @@ let rec move (fig: figure) (x, y) =
     | Circle ((cx, cy), r, col) -> Circle (((cx + x), (cy + y)), r, col)
     | Rectangle ((x0, y0), (x1, y1), col) -> Rectangle (((x0 + x), (y0 + y)), ((x1 + x), (y1 + y)), col)
     | Mix (f1, f2) -> Mix(move f1 (x,y), move f2 (x,y))
-
