@@ -74,7 +74,7 @@ let (figTest : figure) = (Mix (circle, rect))
 
 printfn "%A" figTest
 
-// 8gØ.3
+// 8gØ.3 og 8gø.4
 
 let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
     let grey  = ImgUtil.fromRgb (128, 128, 128)
@@ -87,8 +87,12 @@ let makePicture (fileName: string) (fig: figure) (w: int) (h: int) : unit =
     ImgUtil.toPngFile fileName bmp
 makePicture "test.png" figTest 150 150 //Billedet skal være kvadratisk, af en eller anden grund
 
-let checkCircle (fig : figure) : bool=
-    true
+
+let checkCircle (Circle ((cx: int, cy: int), (rad: int), (r: int, b: int, g: int)) : figure) : bool =
+    if rad > 0 && r >= 0 && r <= 255 && b >= 0 && b <= 255 && g >= 0 && g <= 255
+        then true
+    else
+       false
 
 let checkRect (Rectangle ((x0 : int,y0 : int), (x1 : int,y1 : int), (r : int, b : int, g : int)) : figure) : bool =
     let coords = (x1 - x0) > 0 && (y1 - y0) > 0
@@ -101,6 +105,7 @@ let rec checkFigure (fig : figure) : bool =
     | Rectangle ((x0,y0), (x1,y1), col) -> checkRect fig
     | Mix (f1, f2) -> checkFigure f1 && checkFigure f2
 
-let badFig = Rectangle ((10, 10), (20, 20), (255, 0, 1))
+let badRect = Rectangle ((10, 10), (20, 20), (255, 0, 1))
+let badCircle = Circle ((50,50), 45, (255, -1, 1))
 
-printfn "%b" (checkFigure badFig)
+printfn "%b" (checkFigure (Mix(badRect, badCircle)))
