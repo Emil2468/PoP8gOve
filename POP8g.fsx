@@ -119,3 +119,5 @@ let rec move (fig: figure) (x, y) =
     | Rectangle ((x0, y0), (x1, y1), col) -> Rectangle (((x0 + x), (y0 + y)), ((x1 + x), (y1 + y)), col)
     | Mix (f1, f2) -> Mix(move f1 (x,y), move f2 (x,y))
 
+makePicture "moveTest" (move (figTest (-20,20)) 100)
+
