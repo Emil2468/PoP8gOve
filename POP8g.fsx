@@ -71,6 +71,7 @@ let rec  colourAt (x,y) figure =
 let (circle : figure) = (Circle ((50,50), 45, (255, 0, 0)))
 let (rect : figure) = (Rectangle ((40, 40), (90, 110), (0,0,255)))
 let (figTest : figure) = (Mix (circle, rect))
+//Mix(move f1 (x,y), move f2 (x, y))
 
 printfn "%A" figTest
 
